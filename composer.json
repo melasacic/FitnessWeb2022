@@ -1,0 +1,12 @@
+{
+    "name": "ibu/fi-tweb",
+    "description": "fitness system for web project",
+    "license": "apache2",
+    "authors": [
+        {
+            "name": "Mela Sacic",
+            "email": "mela.sacic@stu.ibu.edu.ba"
+        }
+    ],
+    "require": {}
+}
