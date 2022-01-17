@@ -10,8 +10,10 @@ require_once dirname(__FILE__)."/dao/ClientDao.class.php";
 $dao = new ClientDao();
 
 $clients= $dao->get_all($_GET['offset'], $_GET['limit']);
-print_r($clients);
-print_r (json_encode( $clients));
+//print_r($clients);
+
+// with this method my API returns JSON format  (json_encode(); )
+print_r (json_encode( $clients, JSON_PRETTY_PRINT));
 
 /*$entity = [
   "name" => "Dva mjeseca",

@@ -1,16 +1,11 @@
 <?php
 
-require_once dirname(__FILE__)."/dao/MembershipTypeDao.class.php";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$dao = new MembershipTypeDao();
+require dirname(__FILE__).'/../vendor/autoload.php';
 
-$entity = [
-  "name" => "Dva mjeseca",
-  "price" => 60,
-  "monthsValid" => 2
-];
-
-$dao->add($entity);
-
+echo "Hello from API";
 
 ?>

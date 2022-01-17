@@ -86,6 +86,7 @@ public function __construct($table){
     return $this->query_unique("SELECT * FROM ".$this->table." WHERE id = :id", ["id" => $id]);
   }
 
+//  koristeci pegenation support mi pullamo data in 
   public function get_all($offset = 0, $limit = 25){
     return  $this->query("SELECT * FROM " .$this->table." LIMIT ${limit} OFFSET {$offset}", []);
   }
