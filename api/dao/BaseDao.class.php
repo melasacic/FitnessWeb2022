@@ -62,7 +62,7 @@ public function __construct($table){
     $stmt->execute($entity);
   }
 
-  protected function query(){
+  protected function query($query, $params){
     $stm =$this->connection->prepare($query);
     $stm->execute($params);
     return $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -87,7 +87,7 @@ public function __construct($table){
   }
 
   public function get_all($offset = 0, $limit = 25){
-    return this->query("SELECT * FROM".$this->table." LIMIT ${limit} OFFSET {$offset}", []);
+    return  $this->query("SELECT * FROM " .$this->table." LIMIT ${limit} OFFSET {$offset}", []);
   }
 
 

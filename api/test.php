@@ -11,7 +11,7 @@ $dao = new ClientDao();
 
 $clients= $dao->get_all($_GET['offset'], $_GET['limit']);
 print_r($clients);
-json_encode();
+print_r (json_encode( $clients));
 
 /*$entity = [
   "name" => "Dva mjeseca",
