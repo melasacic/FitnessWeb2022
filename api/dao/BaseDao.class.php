@@ -63,14 +63,14 @@ public function __construct($table){
   }
 
   protected function query($query, $params){
-    $stm =$this->connection->prepare($query);
+    $stm = $this->connection->prepare($query);
     $stm->execute($params);
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
 
 // executing any type of SQL on DB
   protected function query_unique($query, $params){
-    $results= $this->query($qurey,$params);
+    $results = $this->query($qurey,$params);
     return reset($results);
   }
 
@@ -86,7 +86,7 @@ public function __construct($table){
     return $this->query_unique("SELECT * FROM ".$this->table." WHERE id = :id", ["id" => $id]);
   }
 
-//  koristeci pegenation support mi pullamo data in 
+//  koristeci pegenation support mi pullamo data in
   public function get_all($offset = 0, $limit = 25){
     return  $this->query("SELECT * FROM " .$this->table." LIMIT ${limit} OFFSET {$offset}", []);
   }
