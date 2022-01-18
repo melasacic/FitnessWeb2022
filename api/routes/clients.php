@@ -4,7 +4,15 @@ Flight::route('GET /clients', function(){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 10);
 
-  Flight::json(Flight::clientDao()->get_all($offset, $limit));
+  $search = Flight::query('search');
+
+  if ($search){
+    // if we are getting clients with search (by name for example) we use get_clients method that is in our ClientDao
+      Flight::json(Flight::clientDao()->get_clients($search, $offset, $limit));
+  }else{
+    // if we are getting clients without search we use get_all method that is in our BaseDao
+      Flight::json(Flight::clientDao()->get_all($offset, $limit));
+  }
 });
 
 Flight::route('GET /clients/@id', function($id){

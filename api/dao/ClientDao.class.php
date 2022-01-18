@@ -8,6 +8,14 @@ class ClientDao extends BaseDao{
   parent::__construct("clients");
 }
 
+  public function get_clients($search, $offset, $limit){
+    // SQL statement for search option in our DAO
+   return $this->query("SELECT *
+                        FROM clients
+                        WHERE firstName LIKE CONCAT('%', :firstName, '%')
+                        LIMIT ${limit} OFFSET ${offset}", ["firstName" => $search]);
+}
+
   public function get_client_by_client_number($client_number){
     return $this->query_unique("SELECT * FROM clients WHERE client_number = :client_number",["client_number" => $client_number]);
   }
