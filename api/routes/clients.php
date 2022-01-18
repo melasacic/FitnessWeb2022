@@ -2,7 +2,7 @@
 
 Flight::route('GET /clients', function(){
   $offset = Flight::query('offset', 0);
-  $limit = Flight::query('limit', 10);
+  $limit = Flight::query('limit', 25);
   $search = Flight::query('search');
 
   Flight::json(Flight::clientService()->get_clients($search, $offset, $limit));

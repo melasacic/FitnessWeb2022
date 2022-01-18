@@ -17,6 +17,9 @@ class Config{
   public static function DB_PORT(){
     return "3306";
   }
+  public static function DATE_FORMAT(){
+    return "Y-m-d H:i:s";
+  }
 
 }
 
