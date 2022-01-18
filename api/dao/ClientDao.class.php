@@ -8,12 +8,28 @@ class ClientDao extends BaseDao{
   parent::__construct("clients");
 }
 
-  public function get_clients($search, $offset, $limit){
-    // SQL statement for search option in our DAO
+  public function get_clients($search, $offset, $limit, $order){
+
+// parsing order order_direction
+/*  switch(substr($order, 0, 1)){
+    case '-': $order_direction = "ASC"; break;
+    case '+': $order_direction = "DESC"; break;
+    default: throw new Exception("Invalid order format. First caharacter should be either + or -"); break;
+}
+
+  //substring from first till the end
+  $order_column = $this->connection->quote(substr($order, 1));*/
+
+  list($order_column, $order_direction) = self::parse_order($order);
+
+  // SQL statement for search option in our DAO
    return $this->query("SELECT *
                         FROM clients
-                        WHERE firstName LIKE CONCAT('%', :firstName, '%')
-                        LIMIT ${limit} OFFSET ${offset}", ["firstName" => $search]);
+                        WHERE LOWER(firstName) LIKE CONCAT('%', :firstName, '%')
+                        /* manually binding these 2 columns */
+                        ORDER BY ${order_column} ${order_direction}
+                        LIMIT ${limit} OFFSET ${offset}",
+                        ["firstName" => strtolower($search)]);
 }
 
   public function get_client_by_client_number($client_number){

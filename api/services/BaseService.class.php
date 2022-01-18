@@ -16,6 +16,7 @@ public function add($data){
   return $this->dao->add($data);
 }
 
+
 // in this function we have 2 DB calls
 public function get_by_id($id){
   // this Dao update record

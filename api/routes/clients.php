@@ -4,8 +4,9 @@ Flight::route('GET /clients', function(){
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
   $search = Flight::query('search');
+  $order = Flight::query('order', "-id");
 
-  Flight::json(Flight::clientService()->get_clients($search, $offset, $limit));
+  Flight::json(Flight::clientService()->get_clients($search, $offset, $limit, $order));
 });
 
 Flight::route('GET /clients/@id', function($id){
