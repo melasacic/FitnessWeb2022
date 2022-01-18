@@ -88,10 +88,14 @@ public function __construct($table){
 
 //  koristeci pegenation support mi pullamo data in
 // ovdje sam morala dodati ORDER BY id u query
-  public function get_all($offset = 0, $limit = 25){
-    return  $this->query("SELECT * FROM " .$this->table." ORDER BY id LIMIT ${limit} OFFSET {$offset}", []);
+  public function get_all($offset = 0, $limit = 25, $order="-id"){
+
+    list($order_column, $order_direction) = self::parse_order($order);
+
+    return  $this->query("SELECT *
+                          FROM " .$this->table."
+                          ORDER BY ${order_column} ${order_direction}
+                          LIMIT ${limit} OFFSET {$offset}", []);
   }
-
-
 }
- ?>
+?>
