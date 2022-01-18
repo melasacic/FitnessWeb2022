@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/dao/ClientDao.class.php';
+require_once dirname(__FILE__).'/services/ClientService.class.php';
 
 // utility function for reading query parameters from URL
 Flight::map('query', function($firstName, $default_value = NULL){
@@ -16,6 +17,9 @@ Flight::map('query', function($firstName, $default_value = NULL){
 
 // register DAO layer
 Flight::register('clientDao', 'ClientDao');
+
+// register Bussines Logic layer services
+Flight::register('clientService', 'ClientService');
 
 // include all routes
 require_once dirname(__FILE__)."/routes/clients.php";
