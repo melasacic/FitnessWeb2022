@@ -87,8 +87,9 @@ public function __construct($table){
   }
 
 //  koristeci pegenation support mi pullamo data in
+// ovdje sam morala dodati ORDER BY id u query
   public function get_all($offset = 0, $limit = 25){
-    return  $this->query("SELECT * FROM " .$this->table." LIMIT ${limit} OFFSET {$offset}", []);
+    return  $this->query("SELECT * FROM " .$this->table." ORDER BY id LIMIT ${limit} OFFSET {$offset}", []);
   }
 
 

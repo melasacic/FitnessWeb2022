@@ -9,7 +9,7 @@ require dirname(__FILE__).'/dao/ClientDao.class.php';
 Flight::register('clientDao', 'ClientDao');
 
 Flight::route('GET /clients', function(){
-    Flight::json(Flight::clientDao()->get_all(0-10));
+    Flight::json(Flight::clientDao()->get_all(0, 10));
 });
 
 Flight::route('GET /clients/@id', function($id){
