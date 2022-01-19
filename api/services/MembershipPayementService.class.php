@@ -11,6 +11,8 @@ class MembershipPayementService extends BaseService{
 }
   // HERE WE DONT NEED FUNCTIONS TO ADD OR ADD BY ID BECAOSE WE HAVE IN BaseService
 
-  
+  public function get_membership_payements($client_id, $offset, $limit){
+    return $this->dao->get_membership_payements($client_id, $offset, $limit);
+  }
 }
 ?>
