@@ -10,8 +10,8 @@ class WorkoutService extends BaseService{
     $this->dao = new WorkoutDao();
 }
 
-public function get_workouts($workout_type_id, $offset, $limit){
-  return $this->dao->get_workouts($workout_type_id, $offset, $limit);
+public function get_workouts($workout_type_id, $offset, $limit, $search){
+  return $this->dao->get_workouts($workout_type_id, $offset, $limit, $search);
 }
 
  public function add($workouts){
