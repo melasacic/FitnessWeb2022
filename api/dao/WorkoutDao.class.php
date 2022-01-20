@@ -23,5 +23,5 @@ class WorkoutDao extends BaseDao{
     $query .="LIMIT ${limit} OFFSET ${offset}";
     return $this->query($query, $params);
 }
-
- ?>
+}
+?>

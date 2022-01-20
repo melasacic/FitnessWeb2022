@@ -1,16 +1,16 @@
 <?php
-require_one dirname(__FILE__)."/BaseDao.class.php";
+require_once dirname(__FILE__)."/BaseDao.class.php";
 
-class WorkoutSheduleDao extends BaseDao{
+class WorkoutScheduleDao extends BaseDao{
 
   public function __construct(){
-    parent::__construct("workout_shedules");
+    parent::__construct("workout_schedules");
   }
 
-  public function get_membership_types($workout_id, $offset, $limit, $search){
+  public function get_workout_schedules($workout_id, $offset, $limit, $search){
     $workout_id = ["workout_id" => $workout_id];
     $query = "SELECT *
-              FROM workout_shedules
+              FROM workout_schedules
               WHERE name = :name ";
     // is search parametar is passed; !=NULL
     if(isset($search)){
