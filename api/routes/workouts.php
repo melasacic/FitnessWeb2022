@@ -9,8 +9,19 @@ Flight::route('GET /workouts', function(){
   Flight::json(Flight::workoutService()->get_workouts($workout_type_id, $offset, $limit, $search, $order));
 });
 
+Flight::route('GET /workouts/@id', function($id){
+  Flight::json(Flight::workoutService()->get_by_id($id));
+});
+
 Flight::route('POST /workouts', function(){
   $data = Flight::request()->data->getData();
   Flight::json(Flight::workoutService()->add($data));
 });
+
+Flight::route('PUT /workouts/@id', function($id){
+  $data = Flight::request()->data->getData();
+  Flight::json(Flight::workoutService()->update($id, $data));
+});
+
+Flight::start();
  ?>
