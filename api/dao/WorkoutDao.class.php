@@ -7,4 +7,5 @@ class WorkoutDao extends BaseDao{
     parent::__construct("workouts");
   }
 }
+
  ?>

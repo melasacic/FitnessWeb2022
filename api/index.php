@@ -8,6 +8,11 @@ require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/ClientService.class.php';
 require_once dirname(__FILE__).'/services/MembershipPayementService.class.php';
 require_once dirname(__FILE__).'/services/MembershipTypeService.class.php';
+require_once dirname(__FILE__).'/services/WorkoutService.class.php';
+
+/*Flight::map('error', function(Exception $ex){
+  Flight::json(["message" => $ex->get_message()], $ex->getCode());
+});*/
 
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
@@ -24,11 +29,13 @@ Flight::map('query', function($firstName, $default_value = NULL){
 Flight::register('clientService', 'ClientService');
 Flight::register('membershipPayementService', 'MembershipPayementService');
 Flight::register('membershipTypeService', 'MembershipTypeService');
+Flight::register('workoutService', 'WorkoutService');
 
 // include all routes
 require_once dirname(__FILE__)."/routes/clients.php";
 require_once dirname(__FILE__)."/routes/membership_payements.php";
 require_once dirname(__FILE__)."/routes/membership_types.php";
+require_once dirname(__FILE__)."/routes/workouts.php";
 
 Flight::start();
 ?>
