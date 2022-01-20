@@ -10,5 +10,8 @@ class MembershipTypeService extends BaseService{
     $this->dao = new MembershipTypeDao();
 }
 
+  public function get_membership_types($name, $offset, $limit, $search){
+    return $this->dao->get_membership_types($name, $offset, $limit, $search);
+  }
 }
 ?>
