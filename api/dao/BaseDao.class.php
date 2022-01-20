@@ -63,16 +63,16 @@ public function __construct($table){
   }
 
   protected function  execute_update( $table, $id, $entity, $id_column="id"){
-    $query = "UPDATE ${table} SET";
-    foreach ($entity  as $name => $value) {
-      $qurey .= $name ."= :". $name. ", ";
-    }
-    $query = substr($query, 0, -2);
-    $query .= "WHERE  ${id_column} = :id";
+   $query = "UPDATE ${table} SET ";
+   foreach($entity as $name => $value){
+     $query .= $name ."= :". $name. ", ";
+   }
+   $query = substr($query, 0, -2);
+   $query .= " WHERE ${id_column} = :id";
 
-    $stmt = $this->connection->prepare($sql);
-    $entity[ 'id']=$id;
-    $stmt->execute($entity);
+   $stmt= $this->connection->prepare($query);
+   $entity['id'] = $id;
+   $stmt->execute($entity);
   }
 
   protected function query($query, $params){
@@ -83,7 +83,7 @@ public function __construct($table){
 
 // executing any type of SQL on DB
   protected function query_unique($query, $params){
-    $results = $this->query($qurey,$params);
+    $results = $this->query($query, $params);
     return reset($results);
   }
 

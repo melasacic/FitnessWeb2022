@@ -18,7 +18,7 @@ public function add($data){
 
 
 // in this function we have 2 DB calls
-public function update($id){
+public function update($id, $data){
   // this Dao update record
   $this->dao->update($id, $data);
   // this Dao get by id this record
