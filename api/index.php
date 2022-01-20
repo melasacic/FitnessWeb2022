@@ -3,10 +3,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// when I do this things to include that is something like manual process od inpendency injection I have in java 
+// when I do this things to include that is something like manual process od inpendency injection I have in java
 require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/ClientService.class.php';
 require_once dirname(__FILE__).'/services/MembershipPayementService.class.php';
+require_once dirname(__FILE__).'/services/MembershipTypeService.class.php';
 
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
@@ -22,10 +23,12 @@ Flight::map('query', function($firstName, $default_value = NULL){
 // register Bussines Logic layer services
 Flight::register('clientService', 'ClientService');
 Flight::register('membershipPayementService', 'MembershipPayementService');
+Flight::register('membershipTypeService', 'MembershipTypeService');
 
 // include all routes
 require_once dirname(__FILE__)."/routes/clients.php";
 require_once dirname(__FILE__)."/routes/membership_payements.php";
+require_once dirname(__FILE__)."/routes/membership_types.php";
 
 Flight::start();
 ?>
