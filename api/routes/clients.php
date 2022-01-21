@@ -27,5 +27,5 @@ Flight::route('PUT /clients/@id', function($id){
   Flight::json(Flight::clientService()->update($id, $data));
 });
 
-Flight::start();
+
 ?>

@@ -14,7 +14,8 @@ Flight::route('GET /workout_schedules/@id', function($id){
 
 Flight::route('POST /workout_schedules', function(){
   $data = Flight::request()->data->getData();
-  Flight::json(Flight::workoutScheduleService()->add($data));
+  Flight::workoutScheduleService()->add($data);
+    Flight::json(["message"=>"Successfully added"]);
 });
 
 Flight::route('PUT /workout_schedules/@id', function($id){
@@ -22,5 +23,4 @@ Flight::route('PUT /workout_schedules/@id', function($id){
   Flight::json(Flight::workoutScheduleService()->update($id, $data));
 });
 
-Flight::start();
  ?>

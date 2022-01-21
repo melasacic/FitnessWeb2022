@@ -15,7 +15,8 @@ Flight::route('GET /membership_types/@id', function($id){
 
 Flight::route('POST /membership_types', function(){
   $data = Flight::request()->data->getData();
-  Flight::json(Flight::membershipTypeService()->add($data));
+  Flight::membershipTypeService()->add($data);
+  Flight::json(["message"=>"Successfully added"]);
 });
 
 Flight::route('PUT /membership_types/@id', function($id){
@@ -23,5 +24,4 @@ Flight::route('PUT /membership_types/@id', function($id){
   Flight::json(Flight::membershipTypeService()->update($id, $data));
 });
 
-Flight::start();
  ?>

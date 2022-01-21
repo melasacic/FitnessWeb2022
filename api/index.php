@@ -12,10 +12,11 @@ require_once dirname(__FILE__).'/services/WorkoutService.class.php';
 require_once dirname(__FILE__).'/services/WorkoutScheduleService.class.php';
 require_once dirname(__FILE__).'/services/WorkoutTypeService.class.php';
 
-/*Flight::map('error', function(Exception $ex){
-  Flight::json(["message" => $ex->get_message()], $ex->getCode());
-});*/
-
+/*
+Flight::map('error', function(Exception $ex){
+  Flight::json(["message" => $ex->getMessage()], $ex->getCode());
+});
+*/
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
 THIS FUNCTION IS PARSING QUERY PARAMETERS AND ASSIGNING A VALUJE TO THEM
@@ -24,8 +25,9 @@ Flight::map('query', function($firstName, $default_value = NULL){
   $request = Flight::request();
   $query_param = @$request->query->getData()[$firstName];
   $query_param = $query_param ? $query_param : $default_value;
-  return $query_param;
+  return urldecode($query_param);
 });
+
 
 // register Bussines Logic layer services
 Flight::register('clientService', 'ClientService');
@@ -42,6 +44,8 @@ require_once dirname(__FILE__)."/routes/membership_types.php";
 require_once dirname(__FILE__)."/routes/workouts.php";
 require_once dirname(__FILE__)."/routes/workout_schedules.php";
 require_once dirname(__FILE__)."/routes/workout_types.php";
+
+
 
 Flight::start();
 ?>

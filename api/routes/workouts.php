@@ -23,5 +23,4 @@ Flight::route('PUT /workouts/@id', function($id){
   Flight::json(Flight::workoutService()->update($id, $data));
 });
 
-Flight::start();
  ?>

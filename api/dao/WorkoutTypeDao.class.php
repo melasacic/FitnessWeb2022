@@ -8,16 +8,14 @@ class WorkoutTypeDao extends BaseDao{
   }
 
   public function get_workout_types($name, $offset, $limit, $search){
-    $name = ["name" => $name];
+
     $query = "SELECT *
-              FROM workout_types
-              WHERE name = :name ";
+              FROM workout_types ";
     // is search parametar is passed; !=NULL
     if(isset($search)){
-      $query .= " AND ( LOWER(name) LIKE CONCAT('%', :search, '%')) ";
       $params['search'] = strtolower($search);
+      $query .= " WHERE LOWER(name) LIKE CONCAT('%', :search, '%') ";
     }
-
     $query .= "LIMIT ${limit} OFFSET ${offset}";
 
     return $this->query($query, $params);

@@ -72,11 +72,13 @@ public function __construct($table){
 
    $stmt= $this->connection->prepare($query);
    $entity['id'] = $id;
+
    $stmt->execute($entity);
   }
 
   protected function query($query, $params){
     $stm = $this->connection->prepare($query);
+
     $stm->execute($params);
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
