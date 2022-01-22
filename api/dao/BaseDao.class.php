@@ -19,6 +19,23 @@ protected  $connection;
 
 private $table;
 
+public function beginTransaction(){
+  // once we are using transaction acutocommit is false
+  // $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+   $response = $this->connection->beginTransaction();
+}
+
+public function commit(){
+   $this->connection->commit();
+   // once we stop using stransaction acutocommit is true
+  // $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+}
+
+public function rollBack(){
+  $response = $this->connection->rollBack();
+   //$this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+}
+
 public static function parse_order($order){
     switch(substr($order, 0, 1)){
       case '-': $order_direction = "ASC"; break;

@@ -19,7 +19,9 @@
 
   // open transaction here
   // in this case either bouth will pass or bouth will fail
+
     try {
+      $this->dao->beginTransaction();
       // add account
           $account = $this->accountDao->add([
             "name" => $user['account'],
@@ -41,9 +43,16 @@
            "token" => md5(random_bytes(16))
          ]);
          // commit here
+         $this->dao->commit();
     } catch (\Exception $e) {
       // rollback
+       $this->dao->rollBack();
         throw $e;
+        if (str_contains($e->getMessage(), 'users.uq_user_email')) {
+        throw new Exception("Account with same email exists in the database", 400, $e);
+      }else{
+        throw $e;
+      }
   }
 
 // TODO: send email with some token (in some other lecture)
