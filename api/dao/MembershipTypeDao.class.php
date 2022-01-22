@@ -9,7 +9,7 @@ class MembershipTypeDao extends BaseDao{
   }
 
   public function get_membership_types($name, $offset, $limit, $search){
-    $params = ["name" => $name];
+  /*  $params = ["name" => $name];
     $query = "SELECT *
               FROM membership_types
               WHERE name = :name ";
@@ -19,6 +19,16 @@ class MembershipTypeDao extends BaseDao{
       $params['search'] = strtolower($search);
     }
 
+    $query .= "LIMIT ${limit} OFFSET ${offset}";
+
+    return $this->query($query, $params);*/
+    $query = "SELECT *
+              FROM membership_types ";
+    // is search parametar is passed; !=NULL
+    if(isset($search)){
+      $params['search'] = strtolower($search);
+      $query .= " WHERE LOWER(name) LIKE CONCAT('%', :search, '%') ";
+    }
     $query .= "LIMIT ${limit} OFFSET ${offset}";
 
     return $this->query($query, $params);

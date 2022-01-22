@@ -11,6 +11,7 @@ require_once dirname(__FILE__).'/services/MembershipTypeService.class.php';
 require_once dirname(__FILE__).'/services/WorkoutService.class.php';
 require_once dirname(__FILE__).'/services/WorkoutScheduleService.class.php';
 require_once dirname(__FILE__).'/services/WorkoutTypeService.class.php';
+require_once dirname(__FILE__).'/services/AccountService.class.php';
 
 /*
 Flight::map('error', function(Exception $ex){
@@ -36,6 +37,7 @@ Flight::register('membershipTypeService', 'MembershipTypeService');
 Flight::register('workoutService', 'WorkoutService');
 Flight::register('workoutScheduleService', 'WorkoutScheduleService');
 Flight::register('workoutTypeService', 'WorkoutTypeService');
+Flight::register('accountService', 'AccountService');
 
 // include all routes
 require_once dirname(__FILE__)."/routes/clients.php";
@@ -44,6 +46,7 @@ require_once dirname(__FILE__)."/routes/membership_types.php";
 require_once dirname(__FILE__)."/routes/workouts.php";
 require_once dirname(__FILE__)."/routes/workout_schedules.php";
 require_once dirname(__FILE__)."/routes/workout_types.php";
+require_once dirname(__FILE__)."/routes/accounts.php";
 
 
 

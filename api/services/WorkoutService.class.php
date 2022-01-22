@@ -16,7 +16,7 @@ public function get_workouts($workout_type_id, $offset, $limit, $search, $order)
 
  public function add($workouts){
    try {
-     $workouts['created_at'] = date(Config::DATE_FORMAT);
+  //   $workouts['created_at'] = date(Config::DATE_FORMAT);
     return parent::add($workouts);
    } catch (Exception $e) {
       if(str_contains($e->getMessage(), 'workouts.uq_workouts_name')) {
