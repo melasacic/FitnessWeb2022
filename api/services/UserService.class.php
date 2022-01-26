@@ -27,7 +27,7 @@
     $account = $this->accountDao->get_by_id($db_user['account_id']);
     if(!isset($account['id']) || $db_user['status'] != 'ACTIVE') throw new Exception("Account not active", 400);
 
-    if($db_user['password'] != $user['password']) throw new Exception("Invalid password", 400);
+    if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password", 400);
 
     return $db_user;
 }
@@ -61,7 +61,7 @@
            "account_id" => $account['id'],
            "name" => $user['name'],
            "email" => $user['email'],
-           "password" => $user['password'],
+           "password" => md5($user['password']),
            "status" => "PENDING",
            "role" => "USER",
            "created_at" => date("Y-m-d H:i:s"),
