@@ -8,12 +8,10 @@ require_once dirname(__FILE__).'/../vendor/autoload.php';
 require_once dirname(__FILE__).'/services/ClientService.class.php';
 require_once dirname(__FILE__).'/services/MembershipPayementService.class.php';
 require_once dirname(__FILE__).'/services/MembershipTypeService.class.php';
-require_once dirname(__FILE__).'/services/WorkoutService.class.php';
-require_once dirname(__FILE__).'/services/WorkoutScheduleService.class.php';
-require_once dirname(__FILE__).'/services/WorkoutTypeService.class.php';
 require_once dirname(__FILE__).'/services/AccountService.class.php';
 require_once dirname(__FILE__).'/services/UserService.class.php';
 
+// error handling for our API
 /*
 Flight::map('error', function(Exception $ex){
   Flight::json(["message" => $ex->getMessage()], $ex->getCode());
@@ -30,14 +28,21 @@ Flight::map('query', function($firstName, $default_value = NULL){
   return urldecode($query_param);
 });
 
+/*Flight::route('GET /swagger', function(){
+  $openapi = \OpenApi\Generator::scan([dirname(__FILE__)."/routes"]);
+  header('Content-Type: application/json');
+  echo $openapi->toJson();
+});*/
+
+Flight::route('GET /', function(){
+  Flight::redirect('/docs');
+});
+
 
 // register Bussines Logic layer services
 Flight::register('clientService', 'ClientService');
 Flight::register('membershipPayementService', 'MembershipPayementService');
 Flight::register('membershipTypeService', 'MembershipTypeService');
-Flight::register('workoutService', 'WorkoutService');
-Flight::register('workoutScheduleService', 'WorkoutScheduleService');
-Flight::register('workoutTypeService', 'WorkoutTypeService');
 Flight::register('accountService', 'AccountService');
 Flight::register('userService', 'UserService');
 
@@ -45,9 +50,6 @@ Flight::register('userService', 'UserService');
 require_once dirname(__FILE__)."/routes/clients.php";
 require_once dirname(__FILE__)."/routes/membership_payements.php";
 require_once dirname(__FILE__)."/routes/membership_types.php";
-require_once dirname(__FILE__)."/routes/workouts.php";
-require_once dirname(__FILE__)."/routes/workout_schedules.php";
-require_once dirname(__FILE__)."/routes/workout_types.php";
 require_once dirname(__FILE__)."/routes/accounts.php";
 require_once dirname(__FILE__)."/routes/users.php";
 
