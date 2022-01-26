@@ -11,6 +11,7 @@
     "require": {
         "mikecao/flight": "^2.0",
         "zircote/swagger-php": "^3.3",
-        "doctrine/annotations": "^1.13"
+        "doctrine/annotations": "^1.13",
+        "swiftmailer/swiftmailer": "^6.3"
     }
 }

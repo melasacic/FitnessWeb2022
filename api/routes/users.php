@@ -8,10 +8,11 @@
   $order = Flight::query('order', "-id");
 
   Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit, $order));
-});
+});*/
 
-Flight::route('GET /users/@id', function($id){
-  Flight::json(Flight::accountService()->get_by_id($id));
+/*Flight::route('GET /users/@id', function($id){
+ $user = Flight::userService()->get_by_id($id);
+ Flight::json($user);
 });*/
 
 
