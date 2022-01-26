@@ -17,6 +17,22 @@
    $this->smtpClient = new SMTPClient();
   }
 
+  public function reset(){
+    
+  }
+
+  public function forgot($user){
+    $db_user = $this->dao->get_user_by_email($user['email']);
+
+    if(!isset($db_user['id'])) throw new Exception("User does not exists", 400);
+
+    //generate token - and save it to DB
+    $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16))]);
+
+    //send email
+    $this->smtpClient->send_user_recovery_token($db_user);
+  }
+
   public function login($user){
     $db_user = $this->dao->get_user_by_email($user['email']);
 
