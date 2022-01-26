@@ -17,6 +17,21 @@
    $this->smtpClient = new SMTPClient();
   }
 
+  public function login($user){
+    $db_user = $this->dao->get_user_by_email($user['email']);
+
+    if(!isset($db_user['id'])) throw new Exception("User does not exists", 400);
+
+    if($db_user['status'] != 'ACTIVE') throw new Exception("Account not active", 400);
+
+    $account = $this->accountDao->get_by_id($db_user['account_id']);
+    if(!isset($account['id']) || $db_user['status'] != 'ACTIVE') throw new Exception("Account not active", 400);
+
+    if($db_user['password'] != $user['password']) throw new Exception("Invalid password", 400);
+
+    return $db_user;
+}
+
   /*public function get_by_id($id){
       $user = $this->dao->get_by_id($id);
       $this->smtpClient->send_register_user_token($user);

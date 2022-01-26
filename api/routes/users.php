@@ -18,13 +18,22 @@
 
 Flight::route('POST /users/register', function(){
   $data = Flight::request()->data->getData();
-  Flight::json(Flight::userService()->register($data));
+  Flight::userService()->register($data);
+
+// nece vratiti citav objekat (citavog usera) nego ce samo ispisati ovu poruku
+  Flight::json(["message" => "Confirmation email has been sent. Please confirm your account."]);
 });
 
 Flight::route('GET /users/confirm/@token', function($token){
   Flight::userService()->confirm($token);
   Flight::json(["message" => "Your account has been activated"]);
 });
+
+Flight::route('POST /users/login', function(){
+  $data = Flight::request()->data->getData();
+  Flight::json(Flight::userService()->login($data));
+});
+
 
 
 /*Flight::route('PUT /users/@id', function($id){

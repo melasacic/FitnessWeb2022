@@ -15,8 +15,8 @@ require_once dirname(__FILE__).'/services/UserService.class.php';
 /*
 Flight::map('error', function(Exception $ex){
   Flight::json(["message" => $ex->getMessage()], $ex->getCode());
-});
-*/
+});*/
+
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
 THIS FUNCTION IS PARSING QUERY PARAMETERS AND ASSIGNING A VALUJE TO THEM
