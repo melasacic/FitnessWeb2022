@@ -24,8 +24,8 @@
     // checking if user exist
     if(!isset($db_user['id'])) throw new Exception("Invalid token", 400);
 
-    // token is expired after more than 60s has passed 
-    if(strtotime(date("Y-m-d H:i:s")) - strtotime($db_user['token_created_at']) > 60) throw new Exception("Token expired", 400);
+    // token is expired after more than 5 min has passed
+    if(strtotime(date("Y-m-d H:i:s")) - strtotime($db_user['token_created_at']) > 300) throw new Exception("Token expired", 400);
 
    // update password                                                  // to invalidate token (token can only be used once)
     $this->dao->update($db_user['id'], ['password' => md5($user['password']), 'token' => NULL]);
@@ -35,6 +35,9 @@
     $db_user = $this->dao->get_user_by_email($user['email']);
 
     if(!isset($db_user['id'])) throw new Exception("User does not exists", 400);
+
+    // user can not to more than one token every 5min
+    if(strtotime(date("Y-m-d H:i:s")) - strtotime($db_user['token_created_at']) < 300) throw new Exception("Be patient token is on his way", 400);
 
     //generate token - and save it to DB
     $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_at' => date("Y-m-d H:i:s")]);
