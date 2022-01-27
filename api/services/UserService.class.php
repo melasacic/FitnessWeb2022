@@ -18,11 +18,12 @@
   }
 
   public function reset($user){
+    // getting token
     $db_user = $this->dao->get_user_by_token($user['token']);
-
+    // checking if user exist
     if(!isset($db_user['id'])) throw new Exception("Invalid token", 400);
-
-    $this->dao->update($db_user['id'], ['password' => md5($user['password'])]);
+    // update password                                                  // to invalidate token (token can only be used once)
+    $this->dao->update($db_user['id'], ['password' => md5($user['password']), 'token' => NULL]);
   }
 
   public function forgot($user){
@@ -113,7 +114,7 @@
 
     if(!isset($user['id'])) throw new Exception("Invalid token", 400);
 
-    $this->dao->update($user['id'], ["status" => "ACTIVE"]);
+    $this->dao->update($user['id'], ["status" => "ACTIVE", 'token' => NULL]);
     $this->accountDao->update($user['account_id'], ["status" => "ACTIVE"]);
 
     //TODO: send email to customer
