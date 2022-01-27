@@ -20,9 +20,14 @@
   public function reset($user){
     // getting token
     $db_user = $this->dao->get_user_by_token($user['token']);
+
     // checking if user exist
     if(!isset($db_user['id'])) throw new Exception("Invalid token", 400);
-    // update password                                                  // to invalidate token (token can only be used once)
+
+    // token is expired after more than 60s has passed 
+    if(strtotime(date("Y-m-d H:i:s")) - strtotime($db_user['token_created_at']) > 60) throw new Exception("Token expired", 400);
+
+   // update password                                                  // to invalidate token (token can only be used once)
     $this->dao->update($db_user['id'], ['password' => md5($user['password']), 'token' => NULL]);
   }
 
@@ -32,7 +37,7 @@
     if(!isset($db_user['id'])) throw new Exception("User does not exists", 400);
 
     //generate token - and save it to DB
-    $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16))]);
+    $db_user = $this->update($db_user['id'], ['token' => md5(random_bytes(16)), 'token_created_at' => date("Y-m-d H:i:s")]);
 
     //send email
     $this->smtpClient->send_user_recovery_token($db_user);
