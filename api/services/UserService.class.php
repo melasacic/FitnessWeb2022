@@ -3,7 +3,9 @@
  require_once dirname(__FILE__). '/BaseService.class.php';
  require_once dirname(__FILE__).'/../dao/AccountDao.class.php';
  require_once dirname(__FILE__).'/../dao/UserDao.class.php';
-  require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
+ require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
+
+ use Firebase\JWT\JWT;
 
  class UserService extends BaseService {
 
@@ -58,15 +60,11 @@
 
     if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password", 400);
 
-    return $db_user;
+    //generate JSON web token
+    $jwt = JWT::encode(['id' => $db_user['id'], 'account_id' => $db_user['account_id'], 'role' => $db_user['role']], 'JWT SECRET', 'HS256');
+
+    return ['token' => $jwt];
 }
-
-  /*public function get_by_id($id){
-      $user = $this->dao->get_by_id($id);
-      $this->smtpClient->send_register_user_token($user);
-      return $user;
-
-  }*/
 
  public function register($user){
    // for user that is registering for the first time, he will need to have account name in it
