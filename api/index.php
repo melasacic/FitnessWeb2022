@@ -49,6 +49,7 @@ Flight::register('accountService', 'AccountService');
 Flight::register('userService', 'UserService');
 
 // include all routes
+require_once dirname(__FILE__)."/routes/middleware.php";
 require_once dirname(__FILE__)."/routes/clients.php";
 require_once dirname(__FILE__)."/routes/membership_payements.php";
 require_once dirname(__FILE__)."/routes/membership_types.php";

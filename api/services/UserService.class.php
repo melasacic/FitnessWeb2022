@@ -6,7 +6,7 @@
  require_once dirname(__FILE__).'/../clients/SMTPClient.class.php';
 
 
-use Firebase\JWT\JWT;
+
  class UserService extends BaseService {
 
    private $accountDao;
@@ -61,7 +61,7 @@ use Firebase\JWT\JWT;
     if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password", 400);
 
     //generate JSON web token
-    $jwt = JWT::encode(['id' => $db_user['id'], 'account_id' => $db_user['account_id'], 'role' => $db_user['role']], 'JWT SECRET', 'HS256');
+    $jwt = \Firebase\JWT\JWT::encode(['id' => $db_user['id'], 'account_id' => $db_user['account_id'], 'role' => $db_user['role']], 'JWT SECRET', 'HS256');
 
     return ['token' => $jwt];
 }
