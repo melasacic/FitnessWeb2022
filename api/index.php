@@ -11,6 +11,8 @@ require_once dirname(__FILE__).'/services/MembershipTypeService.class.php';
 require_once dirname(__FILE__).'/services/AccountService.class.php';
 require_once dirname(__FILE__).'/services/UserService.class.php';
 
+use Firebase\JWT\JWT;
+
 // error handling for our API
 /*
 Flight::map('error', function(Exception $ex){

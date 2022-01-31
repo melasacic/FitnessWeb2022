@@ -10,17 +10,24 @@ Flight::route('GET /accounts', function(){
   Flight::json(Flight::accountService()->get_accounts($search, $offset, $limit, $order));
 });
 
-
+//if user is admin he can get every account if user is not admin he can get only his account
+// this method shuol not execute until we login
 Flight::route('GET /accounts/@id', function($id){
   $headers = getallheaders();
   $token = @$headers['Authentication'];
+  // decode token and transform into class obj
   try {
-
-  } catch (\Exception $e) {
-
+    // if token is successfuly dedoced we can perform this action
+    $decoded = (array)\Firebase\JWT\JWT::decode($token, "JWT SECRET", ['HS256']);
+    if($decoded['account_id'] == $id){
+    Flight::json(Flight::accountService()->get_by_id($id));
+  }else{
+    Flight::json(["message" => "That account is noy for you"], 403);
   }
-
-  Flight::json(Flight::accountService()->get_by_id($id));
+  } catch (\Exception $e) {
+    // if not fail
+    Flight::json(["message" => $e->getMessage()], 401);
+  }
 });
 
 
