@@ -12,6 +12,14 @@ Flight::route('GET /accounts', function(){
 
 
 Flight::route('GET /accounts/@id', function($id){
+  $headers = getallheaders();
+  $token = @$headers['Authentication'];
+  try {
+
+  } catch (\Exception $e) {
+
+  }
+
   Flight::json(Flight::accountService()->get_by_id($id));
 });
 
