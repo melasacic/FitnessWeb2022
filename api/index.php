@@ -15,9 +15,9 @@ use Firebase\JWT\JWT;
 
 // error handling for our API
 
-/*Flight::map('error', function(Exception $ex){
+Flight::map('error', function(Exception $ex){
   Flight::json(["message" => $ex->getMessage()], $ex->getCode());
-});*/
+});
 
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
