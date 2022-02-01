@@ -28,7 +28,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="display:none;">
 
         <div class="container">
             <div class="row">
@@ -64,6 +64,16 @@
         <script src="./assets/js/bootstrap.min.js"></script>
 
        <script type="text/javascript">
+
+       $(function(){
+         if(window.localStorage.getItem("token")){
+           window.location="index.html";
+         }else{
+           // call jQuery selector on body
+           $('body').show();
+         }
+       });
+
         function doLogin(){
 
           var login_info = {
@@ -72,7 +82,9 @@
           };
           $("#login-link").prop('disabled', true);
           $.post( "http://localhost/FITweb/api/users/login", login_info).done(function( data ){
-            // redirect
+            //contains token
+            window.localStorage.setItem("token", data.token);
+            // redirect from login to index.html
             window.location = "index.html"
           }).fail(function(error) {
             $("#login-link").prop('disabled', false);
