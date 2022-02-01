@@ -48,7 +48,7 @@
                                     </div>
 
                                     <!-- Change this to a button or input when using this as a form -->
-                                    <a onclick="doLogin();" class="btn btn-lg btn-success btn-block">Login</a>
+                                    <button id="login-link" onclick="doLogin();" class="btn btn-lg btn-success btn-block">Login</button>
                                 </fieldset>
                             </form>
                         </div>
@@ -70,12 +70,14 @@
              "email" : $("#email").val(),
              "password" : $("#password").val()
           };
-
-          $.post( "/api/login", login_info).done(function( data ){
-            alert( "Data Loaded: " + data );
+          $("#login-link").prop('disabled', true);
+          $.post( "http://localhost/FITweb/api/users/login", login_info).done(function( data ){
+            // redirect
+            window.location = "index.html"
+          }).fail(function(error) {
+            $("#login-link").prop('disabled', false);
+            alert( error.responseJSON.message );
           });
-
-          console.log(login_info);
         }
      </script>
 

@@ -30,14 +30,11 @@ Flight::before('start', function(&$params, &$output){
 Flight::route('*', function(){
   // user routes are publically avaliable
   if(str_starts_with(Flight::request()->url, '/users/')) return TRUE;
-
- // all other methods require authentification
-  $headers = getallheaders();
-  $token = @$headers['Authentication'];
   // decode token and transform into class obj
   try {
     //if token is successfuly dedoced we can perform this action
-    $decoded = (array)\Firebase\JWT\JWT::decode($token, "JWT SECRET", ['HS256']);
+    $decoded = (array)\Firebase\JWT\JWT::decode(explode(" ", Flight::header("Authorization"))[1], "JWTSECRET", ['HS256']);
+    print_r($decoded); die;
     Flight::set('user', $decoded);
     // ADMIN -> create set of routes /admin/something
     // USER -> set of routes of regular users

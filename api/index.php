@@ -14,8 +14,8 @@ require_once dirname(__FILE__).'/services/UserService.class.php';
 use Firebase\JWT\JWT;
 
 // error handling for our API
-/*
-Flight::map('error', function(Exception $ex){
+
+/*Flight::map('error', function(Exception $ex){
   Flight::json(["message" => $ex->getMessage()], $ex->getCode());
 });*/
 
@@ -28,6 +28,11 @@ Flight::map('query', function($firstName, $default_value = NULL){
   $query_param = @$request->query->getData()[$firstName];
   $query_param = $query_param ? $query_param : $default_value;
   return urldecode($query_param);
+});
+
+Flight::map('header', function($name){
+  $headers = getallheaders();
+  return @$headers[$name];
 });
 
 /*Flight::route('GET /swagger', function(){

@@ -61,7 +61,7 @@
     if($db_user['password'] != md5($user['password'])) throw new Exception("Invalid password", 400);
 
     //generate JSON web token
-    $jwt = \Firebase\JWT\JWT::encode(['id' => $db_user['id'], 'account_id' => $db_user['account_id'], 'role' => $db_user['role']], 'JWT SECRET', 'HS256');
+    $jwt = \Firebase\JWT\JWT::encode(['id' => $db_user['id'], 'account_id' => $db_user['account_id'], 'role' => $db_user['role']], 'JWTSECRET', 'HS256');
 
     return ['token' => $jwt];
 }
