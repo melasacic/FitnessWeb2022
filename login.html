@@ -39,7 +39,7 @@
                             <h3 class="panel-title">Please Sign In</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form id="login-form" role="form">
                                 <fieldset>
                                     <div class="form-group">
                                         <input id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
@@ -136,11 +136,13 @@
                         <div class="panel-body">
                             <form role="form">
                                 <fieldset>
+                                  <!-- this is a hidden field that I need to populate with token-->
+                                  <input id="change-password-token" name="token" type="hidden">
                                   <div class="form-group">
                                       <input id="change-password" class="form-control" placeholder="Password" name="password" type="password" value="">
                                   </div>
                                     <div class="form-group">
-                                    <button id="login-link" onclick="doChangePassword();" class="btn btn-lg btn-success btn-block">Change Password</button>
+                                    <button id="change-link" onclick="doChangePassword();" class="btn btn-lg btn-success btn-block">Change Password</button>
                                   </div>
 
                                 </fieldset>
@@ -159,6 +161,7 @@
 
        <script type="text/javascript">
 
+       // this function triggers once page is loaded
        $(function(){
          if(window.localStorage.getItem("token")){
            window.location="index.html";
@@ -166,7 +169,19 @@
            // call jQuery selector on body
            $('body').show();
          }
+         var urlParams = new URLSearchParams(window.location.search);
+         if (urlParams.has("token")){
+           $("#change-password-token").val(urlParams.get("token"));
+           showChangePasswordForm();
+         }
        });
+
+       function showChangePasswordForm(){
+         $("#change-password-form-container").removeClass("hidden");
+         $("#login-form-container").addClass("hidden");
+         $("#register-form-container").addClass("hidden");
+         $("#forgot-form-container").addClass("hidden");
+       }
 
        function showForgotForm(){
          $("#login-form-container").addClass("hidden");
@@ -217,10 +232,13 @@
              "password" : $("#password").val()
           };
           $("#login-link").prop('disabled', true);
+          // $.post is executing http request on our login endpoint
+          // it can return OK with token, or fail
           $.post( "http://localhost/FITweb/api/users/login", login_info).done(function( data ){
-            //contains token
+            // THIS IS AJAX CALL -> COMMUNICATION BETWEEN BACKEND AND FRONTEND -> EXECUTED IN THE BACKGROUND!!!!!!
+            //contains token -> here token is saved from our localStorage
             window.localStorage.setItem("token", data.token);
-            // redirect from login to index.html
+            // redirect from login to index.html -> SPA that we created
             window.location = "index.html"
           }).fail(function(error) {
             $("#login-link").prop('disabled', false);
@@ -245,6 +263,30 @@
            $("#form-alert .alert").html(error.responseJSON.message);
          });
         }
+
+       function doLogout(){
+         window.localStorage.clear();
+         window.location = "login.html";
+       }
+
+       function doChangePassword(){
+         var change_info = {
+           "token" : $("#change-password-token").val(),
+           "password" : $("#change-password").val()
+       };
+       // this is to stop multiple execution on button
+        $("#change-link").prop('disabled', true);
+        $.post( "http://localhost/FITweb/api/users/reset", change_info).done(function( data ){
+         // THIS IS AJAX CALL -> COMMUNICATION BETWEEN BACKEND AND FRONTEND -> EXECUTED IN THE BACKGROUND!!!!!!
+         //contains token -> here token is saved from our localStorage
+         window.localStorage.setItem("token", data.token);
+         // redirect from login to index.html -> SPA that we created
+         window.location = "index.html"
+       }).fail(function(error) {
+         $("#change-link").prop('disabled', false);
+         alert( error.responseJSON.message );
+       });
+       }
      </script>
 
     </body>
