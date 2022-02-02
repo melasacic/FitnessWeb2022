@@ -16,7 +16,7 @@ Flight::route('GET /clients/@id', function($id){
 
 // route for posting new client and saving him to DB
 // kada posaljem request podatci koje sam unjela se spase u $data
-Flight::route('POST /clients', function(){
+Flight::route('POST /cl', function(){
   $data = Flight::request()->data->getData();
   Flight::json(Flight::clientService()->add($data));
 });
