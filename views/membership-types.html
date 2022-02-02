@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        DataTables Advanced Tables
+                        Membership types
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -27,7 +27,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
+
                                 </tbody>
                             </table>
                         </div>
@@ -51,16 +51,16 @@
 getMembershipTypes();
 // this function will execute post request to backend and fetch all clients
 function getMembershipTypes(){
-  $ajax({
+  $.ajax({
     url: "api/membership_types",
     type: "GET",
-    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', localStorage.getItem("token"));},
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},
     success: function(data){
-    console.log(data);
+    console.log(data[0].id);
 
 
     var html = "";
-    for(var i = 0; i < data.lenght; i++){
+    for(var i = 0; i < data.length; i++){
         html += '<tr class="odd">'
           +'<td>'+data[i].id+'</td>'
           +'<td>'+data[i].name+'</td>'
