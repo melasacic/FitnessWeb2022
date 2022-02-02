@@ -15,9 +15,9 @@ use Firebase\JWT\JWT;
 
 // error handling for our API
 
-Flight::map('error', function(Exception $ex){
+/*Flight::map('error', function(Exception $ex){
   Flight::json(["message" => $ex->getMessage()], $ex->getCode());
-});
+});*/
 
 /*utility function for reading query parameters from URL
 WE MAPPED THIS FUNCTION HERE AND WE CAN CALL IT AS MUCH AS WE LIKE
@@ -33,6 +33,12 @@ Flight::map('query', function($firstName, $default_value = NULL){
 Flight::map('header', function($name){
   $headers = getallheaders();
   return @$headers[$name];
+});
+
+// provjeriti da li je neophodno
+Flight::map('jwt', function($user){
+  $jwt = \Firebase\JWT\JWT::encode(["exp" => (time() + 604800)], 'JWTSECRET');
+  return ["token" => $jwt];
 });
 
 /*Flight::route('GET /swagger', function(){
