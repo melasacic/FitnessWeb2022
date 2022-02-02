@@ -1,6 +1,6 @@
 <?php
 
-Flight::route('GET /clients', function(){
+Flight::route('GET /cl', function(){
   // grabbing parameters form URL
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
