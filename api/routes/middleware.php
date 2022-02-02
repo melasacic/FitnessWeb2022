@@ -33,8 +33,11 @@ Flight::route('*', function(){
   // decode token and transform into class obj
   try {
     //if token is successfuly dedoced we can perform this action
-    $decoded = (array)\Firebase\JWT\JWT::decode(explode(" ", Flight::header("Authorization"))[1], "JWTSECRET", ['HS256']);
-    print_r($decoded); die;
+    $token = explode(" ", Flight::header("Authorization"))[1];
+    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE3IiwiYWNjb3VudF9pZCI6IjE5Iiwicm9sZSI6IlVTRVIifQ.gtNR4DO0I-b-TQKca3sGOuKqMpbGCeEu0PIAKcSG6Pc";
+  //  $decoded = (array)\Firebase\JWT\JWT::decode($token, ["JWTSECRET"], ['HS256']);
+    $decoded = (array)\Firebase\JWT\JWT::decode($token, new \Firebase\JWT\Key("JWTSECRET", 'HS256'));
+  //  print_r($decoded); die;
     Flight::set('user', $decoded);
     // ADMIN -> create set of routes /admin/something
     // USER -> set of routes of regular users
