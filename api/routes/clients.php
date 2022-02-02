@@ -4,8 +4,8 @@ Flight::route('GET /cl', function(){
   // grabbing parameters form URL
   $offset = Flight::query('offset', 0);
   $limit = Flight::query('limit', 25);
-  $search = Flight::query('search');
-  $order = Flight::query('order', "-id");
+  $search =NULL; //Flight::query('search');
+  $order = "+id";//Flight::query('order', "-id");
 
   Flight::json(Flight::clientService()->get_clients($search, $offset, $limit, $order));
 });

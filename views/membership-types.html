@@ -115,7 +115,30 @@ function addMembershipTypes(membership_types){
 
 // this function will execute post request to backend and fetch all clients
 function getMembershipTypes(){
-  $.ajax({
+
+/*  $("#membership-types-table").DataTable({
+  "processing": true,
+  "serverSide": true,
+  "ajax": {
+    url: "api/membership_types",
+    type: "GET",
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},
+    dataSrc: "",
+    data: function ( d ) {
+      d.offset=d.start;
+      d.limit=d.length;
+      console.log(d);
+    }
+  },
+  columns: [
+        { "data": "id" },
+        { "data": "name" },
+        { "data": "price" },
+        { "data": "monthsValid" }
+      ]
+});*/
+
+ $.ajax({
     url: "api/membership_types",
     type: "GET",
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},

@@ -135,6 +135,31 @@ function addClients(clients){
 // this function will execute post request to backend and fetch all clients
 function getClients(){
 
+/*  $("#clients-table").DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ajax": {
+      url: "api/cl",
+      type: "GET",
+      beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},
+      dataSrc: "",
+      data: function ( d ) {
+        d.offset=d.start;
+        d.limit=d.length;
+        console.log(d);
+      }
+        },
+    columns: [
+          { "data": "id" },
+          { "data": "firstName" },
+          { "data": "lastName" },
+          { "data": "email" },
+          { "data": "adress" },
+          { "data": "status" },
+          { "data": "client_number" },
+    ]
+});*/
+
   $.ajax({
     url: "api/cl",
     type: "GET",
