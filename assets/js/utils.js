@@ -1,6 +1,7 @@
 //class AUtils{
 
   //static form2json(selector) {
+  // we created this method to convert form into json object
   function jsonize_form(selector){
     var data = $(selector).serializeArray();
     var form_data = {};
