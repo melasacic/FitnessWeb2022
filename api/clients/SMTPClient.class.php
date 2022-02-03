@@ -8,9 +8,10 @@ class SMTPClient {
 
   public function __construct(){
       // Create the Transport
-    $transport = (new Swift_SmtpTransport('smtp.mailgun.com', 587))
-      ->setUsername('postmaster@sandboxa73ae8d555934030adb0817a1d0514d7.mailgun.org')
-      ->setPassword('') //64be5acfe67ea9297ef3f966efacd804-054ba6b6-0d770a75
+    $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+      ->setUsername('mela.sacic@stu.ibu.edu.ba')
+      ->setPassword('')
+      /*'n$!2*n8#As~WW*4='*/
     ;
 
       $this->mailer = new Swift_Mailer($transport);
@@ -22,7 +23,18 @@ class SMTPClient {
       $message = (new Swift_Message('Confirm your account'))
         ->setFrom(['mela@shfy.io' => 'FITweb'])
         ->setTo([$user['email']])
-        ->setBody('Here is confirmation link: http://localhost/FITweb/api/users/confirm/'.$user['token'])
+        ->setBody('Here is the confirmation link: http://localhost/FITweb/api/users/confirm/'.$user['token'])
+        ;
+
+      $this->mailer->send($message);
+  }
+
+  public function send_user_recovery_token($user){
+        // Create a message
+      $message = (new Swift_Message('Reset Your Password'))
+        ->setFrom(['mela@shfy.io' => 'FITweb'])
+        ->setTo([$user['email']])
+        ->setBody('Here is the recovery token: '.$user['token'])
         ;
 
       $this->mailer->send($message);

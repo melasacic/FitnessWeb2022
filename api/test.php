@@ -8,9 +8,9 @@ require_once dirname(__FILE__).'/../vendor/autoload.php';
 /*Username: postmaster@sandboxa73ae8d555934030adb0817a1d0514d7.mailgun.org
 Default password: 64be5acfe67ea9297ef3f966efacd804-054ba6b6-0d770a75*/
 // Create the Transport
-$transport = (new Swift_SmtpTransport('smtp.mailgun.com', 587))
-  ->setUsername('postmaster@sandboxa73ae8d555934030adb0817a1d0514d7.mailgun.org')
-  ->setPassword('') //64be5acfe67ea9297ef3f966efacd804-054ba6b6-0d770a75
+$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+  ->setUsername('mela.sacic@stu.ibu.edu.ba')
+  ->setPassword('') /*n$!2*n8#As~WW*4=*/
 ;
 
 // Create the Mailer using your created Transport
