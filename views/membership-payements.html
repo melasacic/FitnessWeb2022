@@ -7,12 +7,12 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-membership-payement-modal">
+            + Add
+        </button>
+        <br>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        DataTables Advanced Tables
-                    </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -45,13 +45,85 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
+<div class="modal fade" id="add-membership-payement-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form role="form" id="add-membership-payemet">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add payements</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <label>ID</label>
+                  <input type="text" name="firstName" class="form-control" placeholder="ID" required>
+                  </div>
+              <div class="form-group">
+                  <label>Client id</label>
+                  <input type="text" name="client_id" class="form-control" placeholder="Last name" required>
+              </div>
+              <div class="form-group">
+                  <label>Membership type id</label>
+                  <input type="text" name="membership_type_id" class="form-control" placeholder="Membership type id" required>
+              </div>
+              <div class="form-group">
+                  <label>Created_at</label>
+                  <input type="text" name="created_at" class="form-control" placeholder="Created_at">
+              </div>
+          </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+          </form>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
 <script type="text/javascript">
 
+  // form validation code
+  $("#add-membership-payemet").validate({
+    submitHandler: function(form){
+      // this stops default html behaviour of form submision because our button is of type submit
+      event.preventDefault();
+      // we pass form here besause it it better to pass functions parameter rather than id (in case form id changes for some reason)
+      console.log(jsonize_form($(form)));
+      addMembershipPayements(jsonize_form($(form)));
+    }
+  });
+
+addMembershipPayements();
 getMembershipPayements();
+
+function addMembershipPayements(clients){
+
+  $.ajax({
+    url: "membership_payement",
+    type: "POST",
+    data: membership_payements,
+    beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},
+    success: function(data){
+      toastr.success("You have a new payement!");
+      // calling this method will refresh clients table content right after adding a new client
+      getMembershipPayements();
+      // this will reset our form after submiting
+      $("#membership-payements-table").trigger("reset");
+      // this will close our model after submiting
+      $("#add-membership-payement-modal").modal("hide");
+    console.log(data[0].id);
+  },
+    error: function(jqXHR, textStatus, errorThrown ){
+      console.log(jqXHR);
+    }
+});
+}
+
 // this function will execute post request to backend and fetch all clients
 function getMembershipPayements(){
   $.ajax({
-    url: "api/membership_payements",
+    url: "api/membership_payement",
     type: "GET",
     beforeSend: function(xhr){xhr.setRequestHeader('Authorization', "Bearer " + localStorage.getItem("token"));},
   success: function(data){
