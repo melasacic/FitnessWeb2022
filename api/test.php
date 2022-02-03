@@ -10,7 +10,7 @@ Default password: 64be5acfe67ea9297ef3f966efacd804-054ba6b6-0d770a75*/
 // Create the Transport
 $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
   ->setUsername('mela.sacic@stu.ibu.edu.ba')
-  ->setPassword('') /*n$!2*n8#As~WW*4=*/
+  ->setPassword("")
 ;
 
 // Create the Mailer using your created Transport

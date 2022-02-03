@@ -10,8 +10,8 @@ class SMTPClient {
       // Create the Transport
     $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
       ->setUsername('mela.sacic@stu.ibu.edu.ba')
-      ->setPassword('')
-      /*'n$!2*n8#As~WW*4='*/
+      ->setPassword(Config::SMTP_PASSWORD())
+
     ;
 
       $this->mailer = new Swift_Mailer($transport);

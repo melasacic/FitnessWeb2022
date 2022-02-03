@@ -38,7 +38,7 @@ class Config{
   }
   public static function SMTP_PASSWORD(){
 
-  return Config::get_env("SMTP_PASSWORD", ""); /*n$!2*n8#As~WW*4=*/
+  return Config::get_env("SMTP_PASSWORD", "");
   }
 
  // this function is getting parameter from enviroment variables or returning default value

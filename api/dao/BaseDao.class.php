@@ -60,6 +60,8 @@ public function __construct($table){
  }
 }
 
+mysql://b42882b65b1d64:0a8e4711@eu-cdbr-west-02.cleardb.net/heroku_4403c3f3192b333?reconnect=true
+
   protected function insert($table, $entity){
     $query = "INSERT INTO ${table} (";
        foreach ($entity as $column => $value) {
